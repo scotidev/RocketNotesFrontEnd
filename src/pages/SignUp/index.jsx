@@ -1,44 +1,77 @@
-import { Container, Form } from "./styles";
-import { Link } from "react-router-dom";
-import { Input } from "../../components/Input"
-import { Button } from "../../components/Button"
-import { FiMail, FiLock, FiUser } from "react-icons/fi"
-import { Background } from "./styles";
+import { Container, Form, Background } from "./styles";
+
+import { FiMail, FiLock, FiUser } from "react-icons/fi";
+
+import { Input } from "../../components/Input";
+import { Button } from "../../components/Button";
+
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { api } from "../../services/api";
 
 export function SignUp() {
-    return(
-        <Container>
-            <Background />
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-            <Form>
-                <h1>RocketNotes</h1>
-                <p>Aplicação para salvar e gerenciar seus links úteis</p>
+  const navigate = useNavigate();
 
-                <h2>Crie sua conta</h2>
+  async function handleSignUp() {
+    try {
+      await api.post("/users", { name, email, password });
 
-                <Input 
-                placeholder="Nome"
-                type="text"
-                icon={FiUser}
-                />
+      console.log("Usuário cadastrado com sucesso!");
 
+      navigate("/");
+    } catch (error) {
+      if (error.response) {
+        console.log("Erro de cadastro:", error.response.data.message);
+      } else {
+        console.log(
+          "Não foi possível conectar. Verifique sua conexão ou o servidor."
+        );
+      }
+    }
+  }
 
-                <Input 
-                placeholder="E-mail"
-                type="text"
-                icon={FiMail}
-                />
+  return (
+    <Container>
+      <Background />
 
-                <Input 
-                placeholder="Senha"
-                type="password"
-                icon={FiLock}
-                />
+      <Form>
+        <h1>RocketNotes</h1>
+        <p>Aplicação para salvar e gerenciar seus links úteis</p>
 
-                <Button title="Cadastrar" />
+        <h2>Crie sua conta</h2>
 
-            <Link to="/">Voltar para Login</Link>
-            </Form>
-        </Container>
-    )
+        <Input
+          placeholder="Nome"
+          type="text"
+          icon={FiUser}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+
+        <Input
+          placeholder="E-mail"
+          type="text"
+          icon={FiMail}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <Input
+          placeholder="Senha"
+          type="password"
+          icon={FiLock}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <Button title="Cadastrar" onClick={handleSignUp} />
+
+        <Link to="/">Voltar para Login</Link>
+      </Form>
+    </Container>
+  );
 }
