@@ -124,9 +124,9 @@ export function New() {
             <div className="tags">
               {tags.map((tag, index) => (
                 <NoteItem
-                  key={String(index)} // Use um id único se disponível, ou index como fallback
+                  key={String(index)}
                   value={tag}
-                  onClick={() => handleRemoveTag(tag)} // Botão de remover tag
+                  onClick={() => handleRemoveTag(tag)}
                 />
               ))}
               <NoteItem
