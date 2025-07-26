@@ -20,14 +20,14 @@ export function SignUp() {
     try {
       await api.post("/users", { name, email, password });
 
-      console.log("Usuário cadastrado com sucesso!");
+      alert("Usuário cadastrado com sucesso!");
 
       navigate("/");
     } catch (error) {
       if (error.response) {
-        console.log("Erro de cadastro:", error.response.data.message);
+        alert("Erro de cadastro:", error.response.data.message);
       } else {
-        console.log(
+        alert(
           "Não foi possível conectar. Verifique sua conexão ou o servidor."
         );
       }

@@ -17,16 +17,11 @@ export function AuthProvider({ children }) {
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       setData({ user, token });
-
-      console.log("Login bem-sucedido no AuthProvider!");
     } catch (error) {
       if (error.response) {
-        console.log(
-          "Erro de login no AuthProvider:",
-          error.response.data.message
-        );
+        alert("Erro de login no AuthProvider:", error.response.data.message);
       } else {
-        console.log(
+        alert(
           "Não foi possível conectar. Verifique sua conexão ou o servidor."
         );
       }
@@ -39,8 +34,6 @@ export function AuthProvider({ children }) {
 
     setData({});
     api.defaults.headers.common["Authorization"] = "";
-
-    console.log("Logout realizado.");
   }
 
   useEffect(() => {
@@ -53,7 +46,6 @@ export function AuthProvider({ children }) {
         token,
         user: JSON.parse(user),
       });
-      console.log("Dados de autenticação restaurados do localStorage.");
     }
   }, []);
 

@@ -1,8 +1,15 @@
 import { Container, Profile, Logout } from "./styles";
 
 import { RiShutDownLine } from "react-icons/ri";
+import { useAuth } from "../../hooks/auth";
 
 export function Header() {
+  const { signOut } = useAuth();
+
+  function handleSignOut() {
+    signOut();
+  }
+
   return (
     <Container>
       <Profile to="/profile">
@@ -10,11 +17,11 @@ export function Header() {
 
         <div>
           <span>Bem-Vindo</span>
-          <strong>Gabriel Scoti</strong>
+          <strong>Usuário</strong>
         </div>
       </Profile>
 
-      <Logout>
+      <Logout onClick={handleSignOut}>
         <RiShutDownLine />
       </Logout>
     </Container>

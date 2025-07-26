@@ -39,7 +39,7 @@ export const Profile = styled(Link)`
 
     strong {
       font-size: 18px;
-      color: ${({ theme }) => theme.COLORS.WHITE_100};
+      color: ${({ theme }) => theme.COLORS.ORANGE};
     }
   }
 `;

@@ -8,7 +8,15 @@ import { Input } from "../../components/Input/index.jsx";
 import { Section } from "../../components/Section";
 import { Note } from "../../components/Note/index.jsx";
 
+import { useNavigate } from "react-router-dom";
+
 export function Home() {
+  const navigate = useNavigate();
+
+  function handleDetails(id) {
+    navigate(`/details/${id}`);
+  }
+
   return (
     <Container>
       <Brand>
